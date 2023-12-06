@@ -33,6 +33,7 @@ for (k in 1:ncol(abalone)) {
     }
 }
 
+write.csv(abalone, "./processed_data/abalone.csv", row.names=FALSE)
 write.csv(abalone_z, "./normalized_data/abalone_z.csv", row.names = FALSE)
 write.csv(abalone_mm, "./scaled_data/abalone_mm.csv", row.names = FALSE)
 
@@ -60,6 +61,7 @@ for (k in 1:ncol(cc_gen)) {
     cc_gen_mm[, k] <- ((cc_gen[, k] - min) / (max - min))
 }
 
+write.csv(cc_gen, "./processed_data/cc_general.csv", row.names=FALSE)
 write.csv(cc_gen_z, "./normalized_data/cc_general_z.csv", row.names = FALSE)
 write.csv(cc_gen_mm, "./scaled_data/cc_general_mm.csv", row.names = FALSE)
 ########### ###########
@@ -84,6 +86,7 @@ for (k in 1:ncol(concrete)) {
     concrete_mm[, k] <- ((concrete[, k] - min) / (max - min))
 }
 
+write.csv(concrete, "./processed_data/concrete_data.csv", row.names=FALSE)
 write.csv(concrete_z, "./normalized_data/concrete_data_z.csv", row.names = FALSE)
 write.csv(concrete_mm, "./scaled_data/concrete_data_mm.csv", row.names = FALSE)
 ########### ###########
@@ -110,6 +113,7 @@ for (k in 1:ncol(kc_house)) {
     kc_house_mm[, k] <- ((kc_house[, k] - min) / (max - min))
 }
 
+write.csv(kc_house, "./processed_data/kc_housing.csv", row.names=FALSE)
 write.csv(kc_house_z, "./normalized_data/kc_housing_z.csv", row.names = FALSE)
 write.csv(kc_house_mm, "./scaled_data/kc_housing_mm.csv", row.names = FALSE)
 ########### ###########
@@ -141,6 +145,7 @@ for (k in 1:ncol(similarity)) {
     }
 }
 
+write.csv(similarity, "./processed_data/similarity_prediction.csv", row.names=FALSE)
 write.csv(similarity_z, "./normalized_data/similarity_prediction_z.csv", row.names = FALSE)
 write.csv(similarity_mm, "./scaled_data/similarity_prediction_mm.csv", row.names = FALSE)
 
