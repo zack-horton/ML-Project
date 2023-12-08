@@ -1031,8 +1031,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1200' minheight='1200' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='113' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='112' param='vert' type-v2='layout-flow' w='98896' x='552' y='1000'>
+            <zone h='100000' id='117' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='116' param='vert' type-v2='layout-flow' w='98896' x='552' y='1000'>
                 <zone fixed-size='280' h='49000' id='3' is-fixed='true' name='Avg Silhouette' w='49447' x='552' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -1089,41 +1089,39 @@
         <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
           <zone h='98000' id='115' param='horz' type-v2='layout-flow' w='98896' x='552' y='1000'>
             <zone h='98000' id='105' param='vert' type-v2='layout-flow' w='98896' x='552' y='1000'>
-              <zone h='98000' id='103' param='vert' type-v2='layout-flow' w='98896' x='552' y='1000'>
-                <zone h='98000' id='7' param='horz' type-v2='layout-flow' w='98896' x='552' y='1000'>
-                  <zone h='98000' id='5' type-v2='layout-basic' w='98896' x='552' y='1000'>
-                    <zone h='49000' id='3' name='Avg WCSS' w='49446' x='552' y='1000'>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                      </zone-style>
-                    </zone>
-                    <zone h='49000' id='9' name='Avg WCSS Raw' w='49450' x='49998' y='1000'>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                      </zone-style>
-                    </zone>
-                    <zone h='49000' id='10' name='Stdev WCSS' w='49446' x='552' y='50000'>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                      </zone-style>
-                    </zone>
-                    <zone h='49000' id='11' name='Stdev WCSS Raw' w='49450' x='49998' y='50000'>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                      </zone-style>
-                    </zone>
+              <zone h='98000' id='7' param='horz' type-v2='layout-flow' w='98896' x='552' y='1000'>
+                <zone h='98000' id='5' type-v2='layout-basic' w='98896' x='552' y='1000'>
+                  <zone h='49000' id='3' name='Avg WCSS' w='49446' x='552' y='1000'>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
+                  </zone>
+                  <zone h='49000' id='9' name='Avg WCSS Raw' w='49450' x='49998' y='1000'>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
+                  </zone>
+                  <zone h='49000' id='10' name='Stdev WCSS' w='49446' x='552' y='50000'>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
+                  </zone>
+                  <zone h='49000' id='11' name='Stdev WCSS Raw' w='49450' x='49998' y='50000'>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
                   </zone>
                 </zone>
               </zone>
@@ -1141,8 +1139,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1200' minheight='1200' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='123' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='122' param='vert' type-v2='layout-flow' w='98896' x='552' y='1000'>
+            <zone h='100000' id='127' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='126' param='vert' type-v2='layout-flow' w='98896' x='552' y='1000'>
                 <zone fixed-size='280' h='49000' id='3' is-fixed='true' name='Avg WCSS' w='49446' x='552' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -1498,7 +1496,7 @@
       </viewpoint>
       <simple-id uuid='{D502E082-A665-477A-8DB1-E50FEB683F93}' />
     </window>
-    <window class='dashboard' name='WCSSD Viz' tab-color='#f66273'>
+    <window class='dashboard' maximized='true' name='WCSSD Viz' tab-color='#f66273'>
       <viewpoints>
         <viewpoint name='Avg WCSS'>
           <zoom type='entire-view' />
@@ -1516,7 +1514,7 @@
       <active id='10' />
       <simple-id uuid='{0CD49C81-292D-4B44-8F85-3B891839D271}' />
     </window>
-    <window class='dashboard' maximized='true' name='Silhouette Viz' tab-color='#4f779a'>
+    <window class='dashboard' name='Silhouette Viz' tab-color='#4f779a'>
       <viewpoints>
         <viewpoint name='Avg Silhouette'>
           <zoom type='entire-view' />

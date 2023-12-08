@@ -1,0 +1,325 @@
+Model Number,Transformation,Proportion,K,Time Limit,Optimizer Distance,Model,WCSS,WCSS Raw,Silhouette,Silhouette Raw
+1,normalized,0.10,3,30,manhattan,Base,6950.700,117322.552,0.529,0.391
+2,normalized,0.10,3,30,manhattan,Optimal without Warm Start,7198.359,114974.313,0.571,0.513
+3,normalized,0.10,3,30,manhattan,Optimal with Warm Start,6729.011,116123.921,0.550,0.408
+4,normalized,0.10,3,30,euclidean,Base,1062.597,55619.364,0.529,0.391
+5,normalized,0.10,3,30,euclidean,Optimal without Warm Start,1535.922,55981.528,0.350,0.325
+6,normalized,0.10,3,30,euclidean,Optimal with Warm Start,1062.597,55619.364,0.529,0.391
+7,normalized,0.10,3,90,manhattan,Base,6950.700,117322.552,0.529,0.391
+8,normalized,0.10,3,90,manhattan,Optimal without Warm Start,6592.794,115778.594,0.596,0.537
+9,normalized,0.10,3,90,manhattan,Optimal with Warm Start,6840.124,116023.144,0.546,0.403
+10,normalized,0.10,3,90,euclidean,Base,1062.597,55619.364,0.529,0.391
+11,normalized,0.10,3,90,euclidean,Optimal without Warm Start,1535.922,55981.528,0.350,0.325
+12,normalized,0.10,3,90,euclidean,Optimal with Warm Start,1062.597,55619.364,0.529,0.391
+13,normalized,0.10,3,180,manhattan,Base,6950.700,117322.552,0.529,0.391
+14,normalized,0.10,3,180,manhattan,Optimal without Warm Start,6592.794,115778.594,0.596,0.537
+15,normalized,0.10,3,180,manhattan,Optimal with Warm Start,6818.316,117344.539,0.549,0.410
+16,normalized,0.10,3,180,euclidean,Base,1062.597,55619.364,0.529,0.391
+17,normalized,0.10,3,180,euclidean,Optimal without Warm Start,1491.301,55950.147,0.329,0.306
+18,normalized,0.10,3,180,euclidean,Optimal with Warm Start,1062.597,55619.364,0.529,0.391
+19,normalized,0.10,4,30,manhattan,Base,4898.682,119530.405,0.453,0.251
+20,normalized,0.10,4,30,manhattan,Optimal without Warm Start,9915.315,96148.659,0.451,0.327
+21,normalized,0.10,4,30,manhattan,Optimal with Warm Start,4910.096,117120.589,0.443,0.244
+22,normalized,0.10,4,30,euclidean,Base,788.424,55531.610,0.453,0.251
+23,normalized,0.10,4,30,euclidean,Optimal without Warm Start,1398.837,56107.298,0.280,0.164
+24,normalized,0.10,4,30,euclidean,Optimal with Warm Start,788.424,55531.610,0.453,0.251
+25,normalized,0.10,4,90,manhattan,Base,4898.682,119530.405,0.453,0.251
+26,normalized,0.10,4,90,manhattan,Optimal without Warm Start,5882.663,112158.371,0.432,0.286
+27,normalized,0.10,4,90,manhattan,Optimal with Warm Start,4916.378,117438.527,0.442,0.238
+28,normalized,0.10,4,90,euclidean,Base,788.424,55531.610,0.453,0.251
+29,normalized,0.10,4,90,euclidean,Optimal without Warm Start,1235.780,56184.728,0.306,0.177
+30,normalized,0.10,4,90,euclidean,Optimal with Warm Start,788.424,55531.610,0.453,0.251
+31,normalized,0.10,4,180,manhattan,Base,4898.682,119530.405,0.453,0.251
+32,normalized,0.10,4,180,manhattan,Optimal without Warm Start,5127.291,113670.356,0.437,0.268
+33,normalized,0.10,4,180,manhattan,Optimal with Warm Start,4918.549,117414.500,0.442,0.238
+34,normalized,0.10,4,180,euclidean,Base,788.424,55531.610,0.453,0.251
+35,normalized,0.10,4,180,euclidean,Optimal without Warm Start,1206.412,56164.405,0.307,0.179
+36,normalized,0.10,4,180,euclidean,Optimal with Warm Start,788.424,55531.610,0.453,0.251
+37,normalized,0.10,5,30,manhattan,Base,4441.819,118966.223,0.405,0.225
+38,normalized,0.10,5,30,manhattan,Optimal without Warm Start,15784.408,132702.459,0.358,0.234
+39,normalized,0.10,5,30,manhattan,Optimal with Warm Start,4554.882,116846.997,0.391,0.205
+40,normalized,0.10,5,30,euclidean,Base,704.654,55273.121,0.405,0.225
+41,normalized,0.10,5,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+42,normalized,0.10,5,30,euclidean,Optimal with Warm Start,704.654,55273.121,0.405,0.225
+43,normalized,0.10,5,90,manhattan,Base,4441.819,118966.223,0.405,0.225
+44,normalized,0.10,5,90,manhattan,Optimal without Warm Start,6422.003,114199.158,0.331,0.230
+45,normalized,0.10,5,90,manhattan,Optimal with Warm Start,4398.797,119265.298,0.353,0.127
+46,normalized,0.10,5,90,euclidean,Base,704.654,55273.121,0.405,0.225
+47,normalized,0.10,5,90,euclidean,Optimal without Warm Start,1102.832,55323.541,0.239,0.112
+48,normalized,0.10,5,90,euclidean,Optimal with Warm Start,704.654,55273.121,0.405,0.225
+49,normalized,0.10,5,180,manhattan,Base,4441.819,118966.223,0.405,0.225
+50,normalized,0.10,5,180,manhattan,Optimal without Warm Start,5505.564,113275.082,0.349,0.211
+51,normalized,0.10,5,180,manhattan,Optimal with Warm Start,4250.877,119409.983,0.353,0.117
+52,normalized,0.10,5,180,euclidean,Base,704.654,55273.121,0.405,0.225
+53,normalized,0.10,5,180,euclidean,Optimal without Warm Start,1082.097,55223.437,0.259,0.126
+54,normalized,0.10,5,180,euclidean,Optimal with Warm Start,704.654,55273.121,0.405,0.225
+55,normalized,0.25,3,30,manhattan,Base,16698.418,293846.848,0.563,0.405
+56,normalized,0.25,3,30,manhattan,Optimal without Warm Start,63124.686,258054.769,0.311,0.330
+57,normalized,0.25,3,30,manhattan,Optimal with Warm Start,16603.930,291502.287,0.564,0.406
+58,normalized,0.25,3,30,euclidean,Base,2733.751,135633.343,0.563,0.405
+59,normalized,0.25,3,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+60,normalized,0.25,3,30,euclidean,Optimal with Warm Start,2733.751,135633.343,0.563,0.405
+61,normalized,0.25,3,90,manhattan,Base,16698.418,293846.848,0.563,0.405
+62,normalized,0.25,3,90,manhattan,Optimal without Warm Start,42523.668,267131.940,0.139,0.162
+63,normalized,0.25,3,90,manhattan,Optimal with Warm Start,16295.285,292158.406,0.573,0.413
+64,normalized,0.25,3,90,euclidean,Base,2733.751,135633.343,0.563,0.405
+65,normalized,0.25,3,90,euclidean,Optimal without Warm Start,6715.475,136342.249,0.123,0.093
+66,normalized,0.25,3,90,euclidean,Optimal with Warm Start,2733.751,135633.343,0.563,0.405
+67,normalized,0.25,3,180,manhattan,Base,16698.418,293846.848,0.563,0.405
+68,normalized,0.25,3,180,manhattan,Optimal without Warm Start,40308.056,267939.687,0.155,0.173
+69,normalized,0.25,3,180,manhattan,Optimal with Warm Start,16190.084,293722.334,0.575,0.413
+70,normalized,0.25,3,180,euclidean,Base,2733.751,135633.343,0.563,0.405
+71,normalized,0.25,3,180,euclidean,Optimal without Warm Start,3898.794,138571.585,0.298,0.096
+72,normalized,0.25,3,180,euclidean,Optimal with Warm Start,2733.751,135633.343,0.563,0.405
+73,normalized,0.25,4,30,manhattan,Base,12712.332,292504.038,0.426,0.186
+74,normalized,0.25,4,30,manhattan,Optimal without Warm Start,62163.730,269811.148,0.068,0.038
+75,normalized,0.25,4,30,manhattan,Optimal with Warm Start,12712.332,292504.038,0.426,0.186
+76,normalized,0.25,4,30,euclidean,Base,2200.366,135432.113,0.426,0.186
+77,normalized,0.25,4,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+78,normalized,0.25,4,30,euclidean,Optimal with Warm Start,2200.366,135432.113,0.426,0.186
+79,normalized,0.25,4,90,manhattan,Base,12712.332,292504.038,0.426,0.186
+80,normalized,0.25,4,90,manhattan,Optimal without Warm Start,23770.254,282362.908,0.523,0.446
+81,normalized,0.25,4,90,manhattan,Optimal with Warm Start,12651.415,288367.793,0.427,0.187
+82,normalized,0.25,4,90,euclidean,Base,2200.366,135432.113,0.426,0.186
+83,normalized,0.25,4,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+84,normalized,0.25,4,90,euclidean,Optimal with Warm Start,2200.366,135432.113,0.426,0.186
+85,normalized,0.25,4,180,manhattan,Base,12712.332,292504.038,0.426,0.186
+86,normalized,0.25,4,180,manhattan,Optimal without Warm Start,23770.254,282362.908,0.523,0.446
+87,normalized,0.25,4,180,manhattan,Optimal with Warm Start,12162.226,292161.812,0.429,0.186
+88,normalized,0.25,4,180,euclidean,Base,2200.366,135432.113,0.426,0.186
+89,normalized,0.25,4,180,euclidean,Optimal without Warm Start,3689.126,135314.253,0.171,0.022
+90,normalized,0.25,4,180,euclidean,Optimal with Warm Start,2200.366,135432.113,0.426,0.186
+91,normalized,0.25,5,30,manhattan,Base,11634.929,292363.997,0.400,0.186
+92,normalized,0.25,5,30,manhattan,Optimal without Warm Start,63604.643,254995.522,0.157,0.145
+93,normalized,0.25,5,30,manhattan,Optimal with Warm Start,11699.940,284988.481,0.402,0.187
+94,normalized,0.25,5,30,euclidean,Base,1882.952,133723.309,0.400,0.186
+95,normalized,0.25,5,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+96,normalized,0.25,5,30,euclidean,Optimal with Warm Start,1882.952,133723.309,0.400,0.186
+97,normalized,0.25,5,90,manhattan,Base,11634.929,292363.997,0.400,0.186
+98,normalized,0.25,5,90,manhattan,Optimal without Warm Start,36925.729,221107.851,0.293,0.221
+99,normalized,0.25,5,90,manhattan,Optimal with Warm Start,10771.392,286116.131,0.372,0.135
+100,normalized,0.25,5,90,euclidean,Base,1882.952,133723.309,0.400,0.186
+101,normalized,0.25,5,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+102,normalized,0.25,5,90,euclidean,Optimal with Warm Start,1882.952,133723.309,0.400,0.186
+103,normalized,0.25,5,180,manhattan,Base,11634.929,292363.997,0.400,0.186
+104,normalized,0.25,5,180,manhattan,Optimal without Warm Start,26352.431,266344.549,0.264,0.208
+105,normalized,0.25,5,180,manhattan,Optimal with Warm Start,10771.000,286088.240,0.372,0.134
+106,normalized,0.25,5,180,euclidean,Base,1882.952,133723.309,0.400,0.186
+107,normalized,0.25,5,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+108,normalized,0.25,5,180,euclidean,Optimal with Warm Start,1882.952,133723.309,0.400,0.186
+109,normalized,0.75,3,30,manhattan,Base,50793.688,774874.793,0.511,0.273
+110,normalized,0.75,3,30,manhattan,Optimal without Warm Start,109168.897,710175.576,0.675,0.656
+111,normalized,0.75,3,30,manhattan,Optimal with Warm Start,50793.688,774874.793,0.511,0.273
+112,normalized,0.75,3,30,euclidean,Base,8439.890,352840.600,0.511,0.273
+113,normalized,0.75,3,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+114,normalized,0.75,3,30,euclidean,Optimal with Warm Start,8439.890,352840.600,0.511,0.273
+115,normalized,0.75,3,90,manhattan,Base,50793.688,774874.793,0.511,0.273
+116,normalized,0.75,3,90,manhattan,Optimal without Warm Start,109168.897,710175.576,0.675,0.656
+117,normalized,0.75,3,90,manhattan,Optimal with Warm Start,49882.528,764024.192,0.512,0.274
+118,normalized,0.75,3,90,euclidean,Base,8439.890,352840.600,0.511,0.273
+119,normalized,0.75,3,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+120,normalized,0.75,3,90,euclidean,Optimal with Warm Start,8439.890,352840.600,0.511,0.273
+121,normalized,0.75,3,180,manhattan,Base,50793.688,774874.793,0.511,0.273
+122,normalized,0.75,3,180,manhattan,Optimal without Warm Start,109168.897,710175.576,0.675,0.656
+123,normalized,0.75,3,180,manhattan,Optimal with Warm Start,49882.528,764024.192,0.512,0.274
+124,normalized,0.75,3,180,euclidean,Base,8439.890,352840.600,0.511,0.273
+125,normalized,0.75,3,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+126,normalized,0.75,3,180,euclidean,Optimal with Warm Start,8439.890,352840.600,0.511,0.273
+127,normalized,0.75,4,30,manhattan,Base,38773.970,781295.049,0.438,0.166
+128,normalized,0.75,4,30,manhattan,Optimal without Warm Start,191390.838,580170.499,0.241,0.230
+129,normalized,0.75,4,30,manhattan,Optimal with Warm Start,38773.970,781295.049,0.438,0.166
+130,normalized,0.75,4,30,euclidean,Base,6868.909,353225.966,0.438,0.166
+131,normalized,0.75,4,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+132,normalized,0.75,4,30,euclidean,Optimal with Warm Start,6868.909,353225.966,0.438,0.166
+133,normalized,0.75,4,90,manhattan,Base,38773.970,781295.049,0.438,0.166
+134,normalized,0.75,4,90,manhattan,Optimal without Warm Start,191390.838,580170.499,0.241,0.230
+135,normalized,0.75,4,90,manhattan,Optimal with Warm Start,38296.109,772945.812,0.438,0.167
+136,normalized,0.75,4,90,euclidean,Base,6868.909,353225.966,0.438,0.166
+137,normalized,0.75,4,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+138,normalized,0.75,4,90,euclidean,Optimal with Warm Start,6868.909,353225.966,0.438,0.166
+139,normalized,0.75,4,180,manhattan,Base,38773.970,781295.049,0.438,0.166
+140,normalized,0.75,4,180,manhattan,Optimal without Warm Start,190287.993,590777.771,0.164,0.161
+141,normalized,0.75,4,180,manhattan,Optimal with Warm Start,38296.109,772945.812,0.438,0.167
+142,normalized,0.75,4,180,euclidean,Base,6868.909,353225.966,0.438,0.166
+143,normalized,0.75,4,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+144,normalized,0.75,4,180,euclidean,Optimal with Warm Start,6868.909,353225.966,0.438,0.166
+145,normalized,0.75,5,30,manhattan,Base,35677.844,776186.230,0.445,0.213
+146,normalized,0.75,5,30,manhattan,Optimal without Warm Start,191390.838,580170.499,0.185,0.172
+147,normalized,0.75,5,30,manhattan,Optimal with Warm Start,35677.844,776186.230,0.445,0.213
+148,normalized,0.75,5,30,euclidean,Base,6013.281,348809.733,0.445,0.213
+149,normalized,0.75,5,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+150,normalized,0.75,5,30,euclidean,Optimal with Warm Start,6013.281,348809.733,0.445,0.213
+151,normalized,0.75,5,90,manhattan,Base,35677.844,776186.230,0.445,0.213
+152,normalized,0.75,5,90,manhattan,Optimal without Warm Start,190672.915,594026.718,0.186,0.173
+153,normalized,0.75,5,90,manhattan,Optimal with Warm Start,35370.118,760121.042,0.446,0.214
+154,normalized,0.75,5,90,euclidean,Base,6013.281,348809.733,0.445,0.213
+155,normalized,0.75,5,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+156,normalized,0.75,5,90,euclidean,Optimal with Warm Start,6013.281,348809.733,0.445,0.213
+157,normalized,0.75,5,180,manhattan,Base,35677.844,776186.230,0.445,0.213
+158,normalized,0.75,5,180,manhattan,Optimal without Warm Start,189940.262,589413.028,0.027,0.021
+159,normalized,0.75,5,180,manhattan,Optimal with Warm Start,35370.118,760121.042,0.446,0.214
+160,normalized,0.75,5,180,euclidean,Base,6013.281,348809.733,0.445,0.213
+161,normalized,0.75,5,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+162,normalized,0.75,5,180,euclidean,Optimal with Warm Start,6013.281,348809.733,0.445,0.213
+163,scaled,0.10,3,30,manhattan,Base,243.903,66991.758,0.714,0.375
+164,scaled,0.10,3,30,manhattan,Optimal without Warm Start,258.623,67617.689,0.705,0.427
+165,scaled,0.10,3,30,manhattan,Optimal with Warm Start,231.993,67477.076,0.656,0.442
+166,scaled,0.10,3,30,euclidean,Base,38.778,55465.574,0.714,0.375
+167,scaled,0.10,3,30,euclidean,Optimal without Warm Start,102.304,55618.476,0.381,0.409
+168,scaled,0.10,3,30,euclidean,Optimal with Warm Start,38.778,55465.574,0.714,0.375
+169,scaled,0.10,3,90,manhattan,Base,243.903,66991.758,0.714,0.375
+170,scaled,0.10,3,90,manhattan,Optimal without Warm Start,231.377,67571.857,0.669,0.456
+171,scaled,0.10,3,90,manhattan,Optimal with Warm Start,231.993,67477.076,0.656,0.442
+172,scaled,0.10,3,90,euclidean,Base,38.778,55465.574,0.714,0.375
+173,scaled,0.10,3,90,euclidean,Optimal without Warm Start,102.304,55618.476,0.381,0.409
+174,scaled,0.10,3,90,euclidean,Optimal with Warm Start,38.778,55465.574,0.714,0.375
+175,scaled,0.10,3,180,manhattan,Base,243.903,66991.758,0.714,0.375
+176,scaled,0.10,3,180,manhattan,Optimal without Warm Start,231.285,67574.179,0.665,0.451
+177,scaled,0.10,3,180,manhattan,Optimal with Warm Start,230.078,67621.743,0.652,0.449
+178,scaled,0.10,3,180,euclidean,Base,38.778,55465.574,0.714,0.375
+179,scaled,0.10,3,180,euclidean,Optimal without Warm Start,90.422,55522.143,0.609,0.370
+180,scaled,0.10,3,180,euclidean,Optimal with Warm Start,38.778,55465.574,0.714,0.375
+181,scaled,0.10,4,30,manhattan,Base,153.780,66443.898,0.660,0.382
+182,scaled,0.10,4,30,manhattan,Optimal without Warm Start,156.840,66825.472,0.581,0.177
+183,scaled,0.10,4,30,manhattan,Optimal with Warm Start,161.289,66805.860,0.671,0.391
+184,scaled,0.10,4,30,euclidean,Base,26.163,55372.086,0.660,0.382
+185,scaled,0.10,4,30,euclidean,Optimal without Warm Start,140.497,55656.577,0.454,0.360
+186,scaled,0.10,4,30,euclidean,Optimal with Warm Start,26.163,55372.086,0.660,0.382
+187,scaled,0.10,4,90,manhattan,Base,153.780,66443.898,0.660,0.382
+188,scaled,0.10,4,90,manhattan,Optimal without Warm Start,157.220,66828.481,0.581,0.177
+189,scaled,0.10,4,90,manhattan,Optimal with Warm Start,161.289,66805.860,0.671,0.391
+190,scaled,0.10,4,90,euclidean,Base,26.163,55372.086,0.660,0.382
+191,scaled,0.10,4,90,euclidean,Optimal without Warm Start,140.497,55656.577,0.454,0.360
+192,scaled,0.10,4,90,euclidean,Optimal with Warm Start,26.163,55372.086,0.660,0.382
+193,scaled,0.10,4,180,manhattan,Base,153.780,66443.898,0.660,0.382
+194,scaled,0.10,4,180,manhattan,Optimal without Warm Start,157.368,66824.108,0.580,0.178
+195,scaled,0.10,4,180,manhattan,Optimal with Warm Start,161.289,66805.860,0.671,0.391
+196,scaled,0.10,4,180,euclidean,Base,26.163,55372.086,0.660,0.382
+197,scaled,0.10,4,180,euclidean,Optimal without Warm Start,90.170,55374.372,0.397,0.341
+198,scaled,0.10,4,180,euclidean,Optimal with Warm Start,26.163,55372.086,0.660,0.382
+199,scaled,0.10,5,30,manhattan,Base,111.486,66169.878,0.526,0.139
+200,scaled,0.10,5,30,manhattan,Optimal without Warm Start,175.319,67044.806,0.560,0.303
+201,scaled,0.10,5,30,manhattan,Optimal with Warm Start,117.835,66483.273,0.545,0.179
+202,scaled,0.10,5,30,euclidean,Base,19.913,55333.216,0.526,0.139
+203,scaled,0.10,5,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+204,scaled,0.10,5,30,euclidean,Optimal with Warm Start,19.913,55333.216,0.526,0.139
+205,scaled,0.10,5,90,manhattan,Base,111.486,66169.878,0.526,0.139
+206,scaled,0.10,5,90,manhattan,Optimal without Warm Start,121.780,66535.085,0.596,0.283
+207,scaled,0.10,5,90,manhattan,Optimal with Warm Start,117.268,66420.991,0.547,0.174
+208,scaled,0.10,5,90,euclidean,Base,19.913,55333.216,0.526,0.139
+209,scaled,0.10,5,90,euclidean,Optimal without Warm Start,88.575,54801.506,0.531,0.232
+210,scaled,0.10,5,90,euclidean,Optimal with Warm Start,19.913,55333.216,0.526,0.139
+211,scaled,0.10,5,180,manhattan,Base,111.486,66169.878,0.526,0.139
+212,scaled,0.10,5,180,manhattan,Optimal without Warm Start,121.693,66536.004,0.596,0.281
+213,scaled,0.10,5,180,manhattan,Optimal with Warm Start,118.306,66478.458,0.551,0.186
+214,scaled,0.10,5,180,euclidean,Base,19.913,55333.216,0.526,0.139
+215,scaled,0.10,5,180,euclidean,Optimal without Warm Start,73.015,55456.215,0.345,0.209
+216,scaled,0.10,5,180,euclidean,Optimal with Warm Start,19.913,55333.216,0.526,0.139
+217,scaled,0.25,3,30,manhattan,Base,631.032,158127.535,0.694,0.349
+218,scaled,0.25,3,30,manhattan,Optimal without Warm Start,1705.168,168353.535,0.275,0.361
+219,scaled,0.25,3,30,manhattan,Optimal with Warm Start,634.205,159438.141,0.695,0.350
+220,scaled,0.25,3,30,euclidean,Base,100.440,131550.940,0.694,0.349
+221,scaled,0.25,3,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+222,scaled,0.25,3,30,euclidean,Optimal with Warm Start,100.440,131550.940,0.694,0.349
+223,scaled,0.25,3,90,manhattan,Base,631.032,158127.535,0.694,0.349
+224,scaled,0.25,3,90,manhattan,Optimal without Warm Start,873.827,161301.051,0.661,0.260
+225,scaled,0.25,3,90,manhattan,Optimal with Warm Start,613.147,159666.587,0.619,0.424
+226,scaled,0.25,3,90,euclidean,Base,100.440,131550.940,0.694,0.349
+227,scaled,0.25,3,90,euclidean,Optimal without Warm Start,1599.948,141027.322,0.467,0.436
+228,scaled,0.25,3,90,euclidean,Optimal with Warm Start,100.440,131550.940,0.694,0.349
+229,scaled,0.25,3,180,manhattan,Base,631.032,158127.535,0.694,0.349
+230,scaled,0.25,3,180,manhattan,Optimal without Warm Start,665.722,159530.870,0.632,0.233
+231,scaled,0.25,3,180,manhattan,Optimal with Warm Start,613.147,159666.587,0.619,0.424
+232,scaled,0.25,3,180,euclidean,Base,100.440,131550.940,0.694,0.349
+233,scaled,0.25,3,180,euclidean,Optimal without Warm Start,1599.948,141027.322,0.467,0.436
+234,scaled,0.25,3,180,euclidean,Optimal with Warm Start,100.440,131550.940,0.694,0.349
+235,scaled,0.25,4,30,manhattan,Base,534.788,157552.770,0.604,0.194
+236,scaled,0.25,4,30,manhattan,Optimal without Warm Start,1982.378,170769.326,0.134,0.196
+237,scaled,0.25,4,30,manhattan,Optimal with Warm Start,540.351,158700.835,0.604,0.195
+238,scaled,0.25,4,30,euclidean,Base,86.239,131484.904,0.604,0.194
+239,scaled,0.25,4,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+240,scaled,0.25,4,30,euclidean,Optimal with Warm Start,86.239,131484.904,0.604,0.194
+241,scaled,0.25,4,90,manhattan,Base,534.788,157552.770,0.604,0.194
+242,scaled,0.25,4,90,manhattan,Optimal without Warm Start,870.924,161452.661,0.454,0.205
+243,scaled,0.25,4,90,manhattan,Optimal with Warm Start,473.963,158714.700,0.544,0.241
+244,scaled,0.25,4,90,euclidean,Base,86.239,131484.904,0.604,0.194
+245,scaled,0.25,4,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+246,scaled,0.25,4,90,euclidean,Optimal with Warm Start,86.239,131484.904,0.604,0.194
+247,scaled,0.25,4,180,manhattan,Base,534.788,157552.770,0.604,0.194
+248,scaled,0.25,4,180,manhattan,Optimal without Warm Start,493.460,158495.345,0.473,0.126
+249,scaled,0.25,4,180,manhattan,Optimal with Warm Start,473.963,158714.700,0.544,0.241
+250,scaled,0.25,4,180,euclidean,Base,86.239,131484.904,0.604,0.194
+251,scaled,0.25,4,180,euclidean,Optimal without Warm Start,214.299,131623.321,0.578,0.406
+252,scaled,0.25,4,180,euclidean,Optimal with Warm Start,86.239,131484.904,0.604,0.194
+253,scaled,0.25,5,30,manhattan,Base,292.638,156167.569,0.565,0.216
+254,scaled,0.25,5,30,manhattan,Optimal without Warm Start,1968.762,170373.264,0.038,0.140
+255,scaled,0.25,5,30,manhattan,Optimal with Warm Start,304.790,157155.467,0.567,0.216
+256,scaled,0.25,5,30,euclidean,Base,51.973,131303.464,0.565,0.216
+257,scaled,0.25,5,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+258,scaled,0.25,5,30,euclidean,Optimal with Warm Start,51.973,131303.464,0.565,0.216
+259,scaled,0.25,5,90,manhattan,Base,292.638,156167.569,0.565,0.216
+260,scaled,0.25,5,90,manhattan,Optimal without Warm Start,738.222,160366.905,0.419,0.205
+261,scaled,0.25,5,90,manhattan,Optimal with Warm Start,303.135,157148.297,0.574,0.230
+262,scaled,0.25,5,90,euclidean,Base,51.973,131303.464,0.565,0.216
+263,scaled,0.25,5,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+264,scaled,0.25,5,90,euclidean,Optimal with Warm Start,51.973,131303.464,0.565,0.216
+265,scaled,0.25,5,180,manhattan,Base,292.638,156167.569,0.565,0.216
+266,scaled,0.25,5,180,manhattan,Optimal without Warm Start,515.013,158582.450,0.356,0.140
+267,scaled,0.25,5,180,manhattan,Optimal with Warm Start,303.135,157148.297,0.574,0.230
+268,scaled,0.25,5,180,euclidean,Base,51.973,131303.464,0.565,0.216
+269,scaled,0.25,5,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+270,scaled,0.25,5,180,euclidean,Optimal with Warm Start,51.973,131303.464,0.565,0.216
+271,scaled,0.75,3,30,manhattan,Base,2548.889,405720.840,0.596,0.131
+272,scaled,0.75,3,30,manhattan,Optimal without Warm Start,6284.911,441987.726,0.355,0.357
+273,scaled,0.75,3,30,manhattan,Optimal with Warm Start,2548.889,405720.840,0.596,0.131
+274,scaled,0.75,3,30,euclidean,Base,398.584,323680.118,0.596,0.131
+275,scaled,0.75,3,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+276,scaled,0.75,3,30,euclidean,Optimal with Warm Start,398.584,323680.118,0.596,0.131
+277,scaled,0.75,3,90,manhattan,Base,2548.889,405720.840,0.596,0.131
+278,scaled,0.75,3,90,manhattan,Optimal without Warm Start,5876.727,440505.139,0.907,0.861
+279,scaled,0.75,3,90,manhattan,Optimal with Warm Start,2548.889,405720.840,0.596,0.131
+280,scaled,0.75,3,90,euclidean,Base,398.584,323680.118,0.596,0.131
+281,scaled,0.75,3,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+282,scaled,0.75,3,90,euclidean,Optimal with Warm Start,398.584,323680.118,0.596,0.131
+283,scaled,0.75,3,180,manhattan,Base,2548.889,405720.840,0.596,0.131
+284,scaled,0.75,3,180,manhattan,Optimal without Warm Start,5876.727,440505.139,0.907,0.861
+285,scaled,0.75,3,180,manhattan,Optimal with Warm Start,2548.889,405720.840,0.596,0.131
+286,scaled,0.75,3,180,euclidean,Base,398.584,323680.118,0.596,0.131
+287,scaled,0.75,3,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+288,scaled,0.75,3,180,euclidean,Optimal with Warm Start,398.584,323680.118,0.596,0.131
+289,scaled,0.75,4,30,manhattan,Base,1191.831,398424.615,0.565,0.225
+290,scaled,0.75,4,30,manhattan,Optimal without Warm Start,6172.997,442551.077,0.233,0.233
+291,scaled,0.75,4,30,manhattan,Optimal with Warm Start,1191.831,398424.615,0.565,0.225
+292,scaled,0.75,4,30,euclidean,Base,203.978,322970.137,0.565,0.225
+293,scaled,0.75,4,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+294,scaled,0.75,4,30,euclidean,Optimal with Warm Start,203.978,322970.137,0.565,0.225
+295,scaled,0.75,4,90,manhattan,Base,1191.831,398424.615,0.565,0.225
+296,scaled,0.75,4,90,manhattan,Optimal without Warm Start,5936.008,440385.730,-0.302,-0.302
+297,scaled,0.75,4,90,manhattan,Optimal with Warm Start,1191.831,398424.615,0.565,0.225
+298,scaled,0.75,4,90,euclidean,Base,203.978,322970.137,0.565,0.225
+299,scaled,0.75,4,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+300,scaled,0.75,4,90,euclidean,Optimal with Warm Start,203.978,322970.137,0.565,0.225
+301,scaled,0.75,4,180,manhattan,Base,1191.831,398424.615,0.565,0.225
+302,scaled,0.75,4,180,manhattan,Optimal without Warm Start,5936.008,440385.730,-0.302,-0.302
+303,scaled,0.75,4,180,manhattan,Optimal with Warm Start,1191.831,398424.615,0.565,0.225
+304,scaled,0.75,4,180,euclidean,Base,203.978,322970.137,0.565,0.225
+305,scaled,0.75,4,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+306,scaled,0.75,4,180,euclidean,Optimal with Warm Start,203.978,322970.137,0.565,0.225
+307,scaled,0.75,5,30,manhattan,Base,1010.673,397357.998,0.511,0.094
+308,scaled,0.75,5,30,manhattan,Optimal without Warm Start,33084.329,580170.499,0.181,0.172
+309,scaled,0.75,5,30,manhattan,Optimal with Warm Start,1010.673,397357.998,0.511,0.094
+310,scaled,0.75,5,30,euclidean,Base,175.899,322876.814,0.511,0.094
+311,scaled,0.75,5,30,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+312,scaled,0.75,5,30,euclidean,Optimal with Warm Start,175.899,322876.814,0.511,0.094
+313,scaled,0.75,5,90,manhattan,Base,1010.673,397357.998,0.511,0.094
+314,scaled,0.75,5,90,manhattan,Optimal without Warm Start,5795.327,440023.735,-0.302,-0.437
+315,scaled,0.75,5,90,manhattan,Optimal with Warm Start,1010.673,397357.998,0.511,0.094
+316,scaled,0.75,5,90,euclidean,Base,175.899,322876.814,0.511,0.094
+317,scaled,0.75,5,90,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+318,scaled,0.75,5,90,euclidean,Optimal with Warm Start,175.899,322876.814,0.511,0.094
+319,scaled,0.75,5,180,manhattan,Base,1010.673,397357.998,0.511,0.094
+320,scaled,0.75,5,180,manhattan,Optimal without Warm Start,6165.952,432834.937,-0.121,-0.280
+321,scaled,0.75,5,180,manhattan,Optimal with Warm Start,1010.673,397357.998,0.511,0.094
+322,scaled,0.75,5,180,euclidean,Base,175.899,322876.814,0.511,0.094
+323,scaled,0.75,5,180,euclidean,Optimal without Warm Start,-15095.000,-15095.000,-15095.000,-15095.000
+324,scaled,0.75,5,180,euclidean,Optimal with Warm Start,175.899,322876.814,0.511,0.094
