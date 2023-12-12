@@ -326,22 +326,22 @@ wcss_individual(similarity_combined, "Scaled", 0.25, "Manhattan", 180, 10, 25)
 wcss_individual(similarity_combined, "Scaled", 0.75, "Manhattan", 180, 100, 250)
 ```
 
-## Silhouette Normalized Plots:
+## Silhouette Scaled Plots:
 
 ### Euclidean:
 
 ```{r}
-silhouette_grouped(similarity_combined, "Normalized", 0.10, "Euclidean", y_scale="free")
-silhouette_grouped(similarity_combined, "Normalized", 0.25, "Euclidean", y_scale="free")
-silhouette_grouped(similarity_combined, "Normalized", 0.75, "Euclidean", y_scale="free")
+silhouette_grouped(similarity_combined, "Scaled", 0.10, "Euclidean", y_scale="free")
+silhouette_grouped(similarity_combined, "Scaled", 0.25, "Euclidean", y_scale="free")
+silhouette_grouped(similarity_combined, "Scaled", 0.75, "Euclidean", y_scale="free")
 ```
 
 ### Manhattan:
 
 ```{r}
-silhouette_grouped(similarity_combined, "Normalized", 0.10, "Manhattan", y_scale="free")
-silhouette_grouped(similarity_combined, "Normalized", 0.25, "Manhattan", y_scale="free")
-silhouette_grouped(similarity_combined, "Normalized", 0.75, "Manhattan", y_scale="free")
+silhouette_grouped(similarity_combined, "Scaled", 0.10, "Manhattan", y_scale="free")
+silhouette_grouped(similarity_combined, "Scaled", 0.25, "Manhattan", y_scale="free")
+silhouette_grouped(similarity_combined, "Scaled", 0.75, "Manhattan", y_scale="free")
 ```
 
 ### Individual Euclidean:
