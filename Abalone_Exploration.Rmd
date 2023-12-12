@@ -1,0 +1,374 @@
+---
+title: "Abalone Exploration"
+author: "Zachary Horton and Tanner Street"
+date: "2023-12-12"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T,
+                      fig.align = "center",
+                      warning = FALSE, 
+                      message = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 10,
+  fig.asp = 1.0
+  )
+knitr::opts_chunk$set(attr.source = '.numberLines')
+
+#setwd("~/Documents/MIT/15.095_Machine_Learning/Project/ML-Project")
+library(ggplot2)
+library(caret)
+library(readr)
+library(readxl)
+library(glmnet) # look at this package
+library(dplyr)
+library(tidyr)
+library(lars) # look at this package
+library(leaps) # look at this package
+library(gbm)
+library(corrplot)
+library(lubridate)
+library(car)
+library(splines)
+library(corrplot)
+library(GGally)
+library(caTools)
+```
+
+```{r, include=FALSE}
+model.colors <- c(`K-Means` = "#005B41", 
+                  `K-Medoids` = "#161A30",
+                  `Opt. K-Means (Cold)` ="#427D9D", 
+                  `Opt. K-Means (Warm)` = "#D80032", 
+                  `Opt. K-Medoids (Cold)` = "#64CCC5", 
+                  `Opt. K-Medoids (Warm)` = "#F05941")
+text.colors <- c(`K-Means` = "white", 
+                 `K-Medoids` = "white",
+                 `Opt. K-Means (Cold)` ="white", 
+                 `Opt. K-Means (Warm)` = "white", 
+                 `Opt. K-Medoids (Cold)` = "black", 
+                 `Opt. K-Medoids (Warm)` = "white")
+update_geom_defaults("text", list(size = 3.5))
+
+## Plotting Functions:
+wcss_grouped <- function(data, transformation, proportion, distance, y_scale="fixed") {
+    if (y_scale == "fixed") {
+        g <- ggplot(data=data %>%
+                   filter(Transformation == tolower(transformation),
+                          Proportion == proportion,
+                          `Optimizer Distance` == tolower(distance)), 
+               aes(x=K, y=WCSS, group=Model, fill=Model)) +
+            geom_col() +
+            facet_grid(cols=vars(Model),
+                       rows=vars(`Time Limit`)) +
+            labs(title=paste0("WCSS: ", transformation, " Data | Proportion = ", proportion*100, "% | ", distance, " Optimizer")) +
+            theme_classic() +
+            theme(legend.position = "bottom") +
+            scale_fill_manual(values=model.colors) +
+            geom_text(aes(label = round(WCSS, digits=0), color=Model), show.legend=FALSE, vjust = 1.3) +
+            scale_color_manual(values=text.colors)
+
+        
+        return(g)
+    } else{
+        g <- ggplot(data=data %>%
+                   filter(Transformation == tolower(transformation),
+                          Proportion == proportion,
+                          `Optimizer Distance` == tolower(distance)), 
+          aes(x=K, y=WCSS, group=Model, fill=Model)) +
+        geom_col() +
+        facet_grid(cols=vars(Model),
+                   rows=vars(`Time Limit`),
+                   scales="free_y") +
+        labs(title=paste0("WCSS: ", transformation, " Data | Proportion = ", proportion*100, "% | ", distance, " Optimizer")) +
+        theme_classic() +
+        theme(legend.position = "bottom") +
+        scale_fill_manual(values=model.colors) +
+        scale_color_manual(values=model.colors) +
+        geom_text(aes(label = round(WCSS, digits=0), color=Model), show.legend=FALSE, vjust = 1.3) +
+        scale_color_manual(values=text.colors)        
+        return(g)        
+    }
+}
+
+wcss_individual <- function(data, transformation, proportion, distance, time, y_lower, y_upper) {
+    g <- ggplot(data=data %>%
+               filter(Transformation == tolower(transformation),
+                      Proportion == proportion,
+                      `Optimizer Distance` == tolower(distance),
+                      `Time Limit` == time), 
+        aes(x=K, y=WCSS, group=Model, fill=Model)) +
+        geom_bar(stat="identity", position=position_dodge(1)) +
+        labs(title=paste0("WCSS: ", transformation, " Data | Proportion = ", proportion*100, "% | ", time, " seconds | ", distance, " Optimizer")) +
+        coord_cartesian(ylim = c(y_lower, y_upper)) +
+        theme_classic() +
+        theme(legend.position = "bottom") +
+        scale_fill_manual(values=model.colors) +
+        scale_color_manual(values=model.colors) +
+        geom_text(aes(label = round(WCSS, digits=0), color=Model), show.legend=FALSE, vjust = 1.3, , position=position_dodge(1)) +
+        scale_color_manual(values=text.colors)
+    return(g)
+}
+
+silhouette_grouped <- function(data, transformation, proportion, distance, y_scale="fixed") {
+    if (y_scale == "fixed") {
+        g <- ggplot(data=data %>%
+               filter(Transformation == tolower(transformation),
+                      Proportion == proportion,
+                      `Optimizer Distance` == tolower(distance)), 
+        aes(x=K, y=Silhouette, group=Model, fill=Model)) +
+        geom_col() +
+        facet_grid(cols=vars(Model),
+                   rows=vars(`Time Limit`)) +
+        labs(title=paste0("Silhouette: ", transformation, " Data | Proportion = ", proportion*100, "% | ", distance, " Optimizer")) +
+        theme_classic() +
+        theme(legend.position = "bottom") +
+        scale_fill_manual(values=model.colors)  +
+        scale_color_manual(values=model.colors) +
+        geom_text(aes(label = round(Silhouette, digits=0), color=Model), show.legend=FALSE, vjust = 1.3) +
+            scale_color_manual(values=text.colors)    
+        return(g)
+    } else{
+         g <- ggplot(data=data %>%
+               filter(Transformation == tolower(transformation),
+                      Proportion == proportion,
+                      `Optimizer Distance` == tolower(distance)), 
+           aes(x=K, y=Silhouette, group=Model, fill=Model)) +
+        geom_col() +
+        facet_grid(cols=vars(Model),
+                   rows=vars(`Time Limit`),
+                   scales="free_y") +
+        labs(title=paste0("Silhouette: ", transformation, " Data | Proportion = ", proportion*100, "% | ", distance, " Optimizer")) +
+        theme_classic() +
+        theme(legend.position = "bottom") +
+        scale_fill_manual(values=model.colors) +
+        scale_color_manual(values=model.colors) +
+        geom_text(aes(label = round(Silhouette, digits=2), color=Model), show.legend=FALSE, vjust = 1.3) +
+        scale_color_manual(values=text.colors)    
+    return(g)
+    }
+}
+
+silhouette_individual <- function(data, transformation, proportion, distance, time, y_lower, y_upper) {
+    g <- ggplot(data=data %>%
+               filter(Transformation == tolower(transformation),
+                      Proportion == proportion,
+                      `Optimizer Distance` == tolower(distance),
+                      `Time Limit` == time), 
+        aes(x=K, y=Silhouette, group=Model, fill=Model)) +
+        geom_bar(stat="identity", position=position_dodge(1)) +
+        labs(title=paste0("Silhouette: ", transformation, " Data | Proportion = ", proportion*100, "% | ", time, " seconds | ", distance, " Optimizer")) +
+        coord_cartesian(ylim = c(y_lower, y_upper)) +
+        theme_classic() +
+        theme(legend.position = "bottom") +
+        scale_fill_manual(values=model.colors) +
+        scale_color_manual(values=model.colors) +
+        geom_text(aes(label = round(Silhouette, digits=2), color=Model), show.legend=FALSE, vjust = 1.3, position=position_dodge(1)) +
+        scale_color_manual(values=text.colors)
+    return(g)
+}
+```
+
+
+## Read in Abalone Data Results 
+
+```{r}
+abalone_combined <- read_excel("./model_results/abalone_combined.xlsx")
+abalone_combined <- abalone_combined %>%
+                        filter(!WCSS ==  -15095.00)
+abalone_combined$Model <- as.factor(abalone_combined$Model)
+abalone_combined$`Time Limit` <- as.factor(abalone_combined$`Time Limit`)
+abalone_combined$Proportion <- as.factor(abalone_combined$Proportion)
+abalone_combined$Transformation  <- as.factor(abalone_combined$Transformation)
+abalone_combined$K <- as.factor(abalone_combined$K)
+abalone_combined$`Optimizer Distance` <- as.factor(abalone_combined$`Optimizer Distance`)
+```
+
+## WCSS Normalized Plots:
+
+### Euclidean:
+
+```{r}
+wcss_grouped(abalone_combined, "Normalized", 0.10, "Euclidean", y_scale="free")
+wcss_grouped(abalone_combined, "Normalized", 0.25, "Euclidean", y_scale="free")
+wcss_grouped(abalone_combined, "Normalized", 0.75, "Euclidean", y_scale="free")
+```
+
+### Manhattan:
+
+```{r}
+wcss_grouped(abalone_combined, "Normalized", 0.10, "Manhattan", y_scale="free")
+wcss_grouped(abalone_combined, "Normalized", 0.25, "Manhattan", y_scale="free")
+wcss_grouped(abalone_combined, "Normalized", 0.75, "Manhattan", y_scale="free")
+```
+
+### Individual Euclidean:
+
+```{r}
+wcss_individual(abalone_combined, "Normalized", 0.10, "Euclidean", 30, 550, 2000)
+wcss_individual(abalone_combined, "Normalized", 0.25, "Euclidean", 30, 1500, 7750)
+wcss_individual(abalone_combined, "Normalized", 0.75, "Euclidean", 30, 5500, 10000)
+wcss_individual(abalone_combined, "Normalized", 0.10, "Euclidean", 90, 550, 1750)
+wcss_individual(abalone_combined, "Normalized", 0.25, "Euclidean", 90, 1250, 7500)
+wcss_individual(abalone_combined, "Normalized", 0.75, "Euclidean", 90, 5000, 35000)
+wcss_individual(abalone_combined, "Normalized", 0.10, "Euclidean", 180, 550, 1600)
+wcss_individual(abalone_combined, "Normalized", 0.25, "Euclidean", 180, 1250, 6000)
+wcss_individual(abalone_combined, "Normalized", 0.75, "Euclidean", 180, 5000, 45000)
+```
+
+### Individual Manhattan:
+
+```{r}
+wcss_individual(abalone_combined, "Normalized", 0.10, "Manhattan", 30, 4500, 19000)
+wcss_individual(abalone_combined, "Normalized", 0.25, "Manhattan", 30, 10000, 76500)
+wcss_individual(abalone_combined, "Normalized", 0.75, "Manhattan", 30, 35000, 220000)
+wcss_individual(abalone_combined, "Normalized", 0.10, "Manhattan", 90, 4000, 8000)
+wcss_individual(abalone_combined, "Normalized", 0.25, "Manhattan", 90, 10000, 70000)
+wcss_individual(abalone_combined, "Normalized", 0.75, "Manhattan", 90, 35000, 210000)
+wcss_individual(abalone_combined, "Normalized", 0.10, "Manhattan", 180, 4000, 8000)
+wcss_individual(abalone_combined, "Normalized", 0.25, "Manhattan", 180, 10000, 55000)
+wcss_individual(abalone_combined, "Normalized", 0.75, "Manhattan", 180, 35000, 210000)
+```
+
+## Silhouette Normalized Plots:
+
+### Euclidean:
+
+```{r}
+silhouette_grouped(abalone_combined, "Normalized", 0.10, "Euclidean", y_scale="free")
+silhouette_grouped(abalone_combined, "Normalized", 0.25, "Euclidean", y_scale="free")
+silhouette_grouped(abalone_combined, "Normalized", 0.75, "Euclidean", y_scale="free")
+```
+
+### Manhattan:
+
+```{r}
+silhouette_grouped(abalone_combined, "Normalized", 0.10, "Manhattan", y_scale="free")
+silhouette_grouped(abalone_combined, "Normalized", 0.25, "Manhattan", y_scale="free")
+silhouette_grouped(abalone_combined, "Normalized", 0.75, "Manhattan", y_scale="free")
+```
+
+### Individual Euclidean:
+
+```{r}
+silhouette_individual(abalone_combined, "Normalized", 0.10, "Euclidean", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.25, "Euclidean", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.75, "Euclidean", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.10, "Euclidean", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.25, "Euclidean", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.75, "Euclidean", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.10, "Euclidean", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.25, "Euclidean", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.75, "Euclidean", 180, -0.05, 0.75)
+```
+
+### Individual Manhattan:
+
+```{r}
+silhouette_individual(abalone_combined, "Normalized", 0.10, "Manhattan", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.25, "Manhattan", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.75, "Manhattan", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.10, "Manhattan", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.25, "Manhattan", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.75, "Manhattan", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.10, "Manhattan", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Normalized", 0.25, "Manhattan", 180, -0.05, 1.00)
+silhouette_individual(abalone_combined, "Normalized", 0.75, "Manhattan", 180, -0.05, 0.70)
+```
+
+## WCSS Scaled Plots:
+
+### Euclidean:
+
+```{r}
+wcss_grouped(abalone_combined, "Scaled", 0.10, "Euclidean", y_scale="free")
+wcss_grouped(abalone_combined, "Scaled", 0.25, "Euclidean", y_scale="free")
+wcss_grouped(abalone_combined, "Scaled", 0.75, "Euclidean", y_scale="free")
+```
+
+### Manhattan:
+
+```{r}
+wcss_grouped(abalone_combined, "Scaled", 0.10, "Manhattan", y_scale="free")
+wcss_grouped(abalone_combined, "Scaled", 0.25, "Manhattan", y_scale="free")
+wcss_grouped(abalone_combined, "Scaled", 0.75, "Manhattan", y_scale="free")
+```
+
+### Individual Euclidean:
+
+```{r}
+wcss_individual(abalone_combined, "Scaled", 0.10, "Euclidean", 30, 0, 200)
+wcss_individual(abalone_combined, "Scaled", 0.25, "Euclidean", 30, 0, 750)
+wcss_individual(abalone_combined, "Scaled", 0.75, "Euclidean", 30, 0, 500)
+wcss_individual(abalone_combined, "Scaled", 0.10, "Euclidean", 90, 0, 150)
+wcss_individual(abalone_combined, "Scaled", 0.25, "Euclidean", 90, 0, 1650)
+wcss_individual(abalone_combined, "Scaled", 0.75, "Euclidean", 90, 0, 5750)
+wcss_individual(abalone_combined, "Scaled", 0.10, "Euclidean", 180, 0, 100)
+wcss_individual(abalone_combined, "Scaled", 0.25, "Euclidean", 180, 0, 1650)
+wcss_individual(abalone_combined, "Scaled", 0.75, "Euclidean", 180, 0, 2300)
+```
+
+### Individual Manhattan:
+
+```{r}
+wcss_individual(abalone_combined, "Scaled", 0.10, "Manhattan", 30, 100, 320)
+wcss_individual(abalone_combined, "Scaled", 0.25, "Manhattan", 30, 275, 3800)
+wcss_individual(abalone_combined, "Scaled", 0.75, "Manhattan", 30, 0, 34000)
+wcss_individual(abalone_combined, "Scaled", 0.10, "Manhattan", 90, 100, 250)
+wcss_individual(abalone_combined, "Scaled", 0.25, "Manhattan", 90, 250, 1700)
+wcss_individual(abalone_combined, "Scaled", 0.75, "Manhattan", 90, 1000, 16500)
+wcss_individual(abalone_combined, "Scaled", 0.10, "Manhattan", 180, 100, 260)
+wcss_individual(abalone_combined, "Scaled", 0.25, "Manhattan", 180, 250, 700)
+wcss_individual(abalone_combined, "Scaled", 0.75, "Manhattan", 180, 950, 16200)
+```
+
+## Silhouette Scaled Plots:
+
+### Euclidean:
+
+```{r}
+silhouette_grouped(abalone_combined, "Scaled", 0.10, "Euclidean", y_scale="free")
+silhouette_grouped(abalone_combined, "Scaled", 0.25, "Euclidean", y_scale="free")
+silhouette_grouped(abalone_combined, "Scaled", 0.75, "Euclidean", y_scale="free")
+```
+
+### Manhattan:
+
+```{r}
+silhouette_grouped(abalone_combined, "Scaled", 0.10, "Manhattan", y_scale="free")
+silhouette_grouped(abalone_combined, "Scaled", 0.25, "Manhattan", y_scale="free")
+silhouette_grouped(abalone_combined, "Scaled", 0.75, "Manhattan", y_scale="free")
+```
+
+### Individual Euclidean:
+
+```{r}
+silhouette_individual(abalone_combined, "Scaled", 0.10, "Euclidean", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.25, "Euclidean", 30, -0.10, 0.85)
+silhouette_individual(abalone_combined, "Scaled", 0.75, "Euclidean", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.10, "Euclidean", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.25, "Euclidean", 90, -0.05, 0.80)
+silhouette_individual(abalone_combined, "Scaled", 0.75, "Euclidean", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.10, "Euclidean", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.25, "Euclidean", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.75, "Euclidean", 180, -0.05, 0.75)
+```
+
+### Individual Manhattan:
+
+```{r}
+silhouette_individual(abalone_combined, "Scaled", 0.10, "Manhattan", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.25, "Manhattan", 30, -0.10, 0.85)
+silhouette_individual(abalone_combined, "Scaled", 0.75, "Manhattan", 30, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.10, "Manhattan", 90, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.25, "Manhattan", 90, -0.05, 0.80)
+silhouette_individual(abalone_combined, "Scaled", 0.75, "Manhattan", 90, -0.05, 0.95)
+silhouette_individual(abalone_combined, "Scaled", 0.10, "Manhattan", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.25, "Manhattan", 180, -0.05, 0.75)
+silhouette_individual(abalone_combined, "Scaled", 0.75, "Manhattan", 180, -0.10, 0.95)
+```
