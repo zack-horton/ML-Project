@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
   )
 knitr::opts_chunk$set(attr.source = '.numberLines')
 
-#setwd("~/Documents/MIT/15.095_Machine_Learning/Project/ML-Project")
+setwd("~/Documents/MIT/15.095_Machine_Learning/Project/ML-Project")
 library(ggplot2)
 library(caret)
 library(readr)

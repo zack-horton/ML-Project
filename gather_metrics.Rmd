@@ -1,0 +1,318 @@
+---
+title: "Similarity Exploration"
+author: "Zachary Horton and Tanner Street"
+date: "2023-12-12"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T,
+                      fig.align = "center",
+                      warning = FALSE, 
+                      message = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 10,
+  fig.asp = 1.0
+  )
+knitr::opts_chunk$set(attr.source = '.numberLines')
+
+#setwd("~/Documents/MIT/15.095_Machine_Learning/Project/ML-Project")
+library(ggplot2)
+library(caret)
+library(readr)
+library(readxl)
+library(glmnet) # look at this package
+library(dplyr)
+library(tidyr)
+library(lars) # look at this package
+library(leaps) # look at this package
+library(gbm)
+library(corrplot)
+library(lubridate)
+library(car)
+library(splines)
+library(corrplot)
+library(GGally)
+library(caTools)
+library(reshape2)
+```
+
+## Read in Similarity Prediction Data Results:
+
+```{r}
+similarity_combined <- read_excel("./model_results/similarity_combined.xlsx")
+similarity_combined <- similarity_combined %>%
+                        filter(!WCSS ==  -15095.00)
+similarity_combined$Model <- as.factor(similarity_combined$Model)
+similarity_combined$`Time Limit` <- as.factor(similarity_combined$`Time Limit`)
+similarity_combined$Proportion <- as.factor(similarity_combined$Proportion)
+similarity_combined$Transformation  <- as.factor(similarity_combined$Transformation)
+similarity_combined$K <- as.factor(similarity_combined$K)
+similarity_combined$`Optimizer Distance` <- as.factor(similarity_combined$`Optimizer Distance`)
+similarity_combined <- similarity_combined[, -1]
+
+abalone_combined <- read_excel("./model_results/abalone_combined.xlsx")
+abalone_combined <- abalone_combined %>%
+                        filter(!WCSS ==  -15095.00)
+abalone_combined$Model <- as.factor(abalone_combined$Model)
+abalone_combined$`Time Limit` <- as.factor(abalone_combined$`Time Limit`)
+abalone_combined$Proportion <- as.factor(abalone_combined$Proportion)
+abalone_combined$Transformation  <- as.factor(abalone_combined$Transformation)
+abalone_combined$K <- as.factor(abalone_combined$K)
+abalone_combined$`Optimizer Distance` <- as.factor(abalone_combined$`Optimizer Distance`)
+abalone_combined <- abalone_combined[, -1]
+```
+
+```{r}
+similarity_wcss <- dcast(similarity_combined[, 1:7],  Transformation + Proportion + K + `Time Limit` + `Optimizer Distance` ~ Model)
+abalone_wcss <- dcast(abalone_combined[, 1:7],  Transformation + Proportion + K + `Time Limit` + `Optimizer Distance` ~ Model)
+
+similarity_silhouette <- dcast(similarity_combined[, c(1:6, 9)],  Transformation + Proportion + K + `Time Limit` + `Optimizer Distance` ~ Model)
+abalone_silhouette <- dcast(abalone_combined[, c(1:6, 9)],  Transformation + Proportion + K + `Time Limit` + `Optimizer Distance` ~ Model)
+
+similarity_silhouette_raw <- dcast(similarity_combined[, c(1:6, 10)],  Transformation + Proportion + K + `Time Limit` + `Optimizer Distance` ~ Model)
+abalone_silhouette_raw <- dcast(abalone_combined[, c(1:6, 10)],  Transformation + Proportion + K + `Time Limit` + `Optimizer Distance` ~ Model)
+```
+
+## Similarity Prediction Data:
+
+```{r}
+temp1 <- similarity_wcss %>%
+                    filter(`Optimizer Distance` == "euclidean") %>%
+                    mutate(Means_WS_Bad = as.integer(abs(`K-Means` - `Opt. K-Means (Warm)`) <= 0.001),
+                           Means_CS_NoSolution = as.integer(is.na(`Opt. K-Means (Cold)`)),
+                           Medoids_WS_Bad = as.integer(abs(`K-Medoids` - `Opt. K-Medoids (Warm)`) <= 0.001),
+                           Medoids_CS_NoSolution = as.integer(is.na(`Opt. K-Medoids (Cold)`)))
+paste("Similarity | # of Euclidean Models:", nrow(temp1))
+paste("Similarity | Means (WCSS) euclidean # warm w/ no improvement:", sum(temp1$Means_WS_Bad))
+paste("Similarity | Means (WCSS) euclidean # cold w/ no solution:", sum(temp1$Means_CS_NoSolution))
+paste("Similarity | Medoids (WCSS) euclidean # warm w/ no improvement:", sum(temp1$Medoids_WS_Bad))
+paste("Similarity | Medoids (WCSS) euclidean # cold w/ no solution:", sum(temp1$Medoids_CS_NoSolution))
+```
+
+```{r}
+temp1 <- similarity_silhouette %>%
+                    filter(`Optimizer Distance` == "euclidean") %>%
+                    mutate(Means_WS_Bad = as.integer(abs(`K-Means` - `Opt. K-Means (Warm)`) <= 0.001),
+                           Means_CS_NoSolution = as.integer(is.na(`Opt. K-Means (Cold)`)),
+                           Medoids_WS_Bad = as.integer(abs(`K-Medoids` - `Opt. K-Medoids (Warm)`) <= 0.001),
+                           Medoids_CS_NoSolution = as.integer(is.na(`Opt. K-Medoids (Cold)`)))
+paste("Similarity | # of Euclidean Models:", nrow(temp1))
+paste("Similarity | Means (Silhouette) euclidean # warm w/ no improvement:", sum(temp1$Means_WS_Bad))
+paste("Similarity | Means (Silhouette) euclidean # cold w/ no solution:", sum(temp1$Means_CS_NoSolution))
+paste("Similarity | Medoids (Silhouette) euclidean # warm w/ no improvement:", sum(temp1$Medoids_WS_Bad))
+paste("Similarity | Medoids (Silhouette) euclidean # cold w/ no solution:", sum(temp1$Medoids_CS_NoSolution))
+
+temp1 <- similarity_silhouette_raw %>%
+                    filter(`Optimizer Distance` == "euclidean") %>%
+                    mutate(Means_WS_Bad = as.integer(abs(`K-Means` - `Opt. K-Means (Warm)`) <= 0.001),
+                           Means_CS_NoSolution = as.integer(is.na(`Opt. K-Means (Cold)`)),
+                           Medoids_WS_Bad = as.integer(abs(`K-Medoids` - `Opt. K-Medoids (Warm)`) <= 0.001),
+                           Medoids_CS_NoSolution = as.integer(is.na(`Opt. K-Medoids (Cold)`)))
+paste("Similarity | # of Euclidean Models:", nrow(temp1))
+paste("Similarity | Means (Silhouette Raw) euclidean # warm w/ no improvement:", sum(temp1$Means_WS_Bad))
+paste("Similarity | Means (Silhouette Raw) euclidean # cold w/ no solution:", sum(temp1$Means_CS_NoSolution))
+paste("Similarity | Medoids (Silhouette Raw) euclidean # warm w/ no improvement:", sum(temp1$Medoids_WS_Bad))
+paste("Similarity | Medoids (Silhouette Raw) euclidean # cold w/ no solution:", sum(temp1$Medoids_CS_NoSolution))
+```
+
+```{r}
+temp1 <- similarity_wcss %>%
+mutate(Means_WS_Improvement_from_Heuristic = (`K-Means` - `Opt. K-Means (Warm)`)*100/(`K-Means`),
+       Means_WS_Improvement_from_CS = (`Opt. K-Means (Cold)` - `Opt. K-Means (Warm)`)*100/(`Opt. K-Means (Cold)`),
+       Means_CS_Improvement_from_Heuristic = (`K-Means` - `Opt. K-Means (Cold)`)*100/(`K-Means`),
+       
+       Medoids_WS_Improvement_from_Heuristic = (`K-Medoids` - `Opt. K-Medoids (Warm)`)*100/(`K-Medoids`),
+       Medoids_WS_Improvement_from_CS = (`Opt. K-Medoids (Cold)` - `Opt. K-Medoids (Warm)`)*100/(`Opt. K-Medoids (Cold)`),
+       Medoids_CS_Improvement_from_Heuristic = (`K-Medoids` - `Opt. K-Medoids (Cold)`)*100/(`K-Medoids`))
+
+paste("Similarity | Means (WCSS) average % warm improves heuristic:", round(mean(temp1$Means_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Means (WCSS) average % warm improves cold:", round(mean(temp1$Means_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Similarity | Means (WCSS) average % cold improves heuristic:", round(mean(temp1$Means_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (WCSS) average % warm improves heuristic:", round(mean(temp1$Medoids_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (WCSS) average % warm improves cold:", round(mean(temp1$Medoids_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (WCSS) average % cold improves heuristic:", round(mean(temp1$Medoids_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+```
+
+```{r}
+temp1 <- similarity_silhouette %>%
+mutate(Means_WS_Improvement_from_Heuristic = (`Opt. K-Means (Warm)` - `K-Means`)*100/(`K-Means`),
+       Means_WS_Improvement_from_CS = (`Opt. K-Means (Warm)` - `Opt. K-Means (Cold)`)*100/(`Opt. K-Means (Cold)`),
+       Means_CS_Improvement_from_Heuristic = (`Opt. K-Means (Cold)` - `K-Means`)*100/(`K-Means`),
+       
+       Medoids_WS_Improvement_from_Heuristic = (`Opt. K-Medoids (Warm)` - `K-Medoids`)*100/(`K-Medoids`),
+       Medoids_WS_Improvement_from_CS = (`Opt. K-Medoids (Warm)` - `Opt. K-Medoids (Cold)`)*100/(`Opt. K-Medoids (Cold)`),
+       Medoids_CS_Improvement_from_Heuristic = (`Opt. K-Medoids (Cold)` - `K-Medoids`)*100/(`K-Medoids`))
+
+output <- temp1 %>%
+  group_by(Transformation) %>%
+  summarise(across(c(Means_WS_Improvement_from_Heuristic, 
+                     Means_WS_Improvement_from_CS, 
+                     Means_CS_Improvement_from_Heuristic, 
+                     Medoids_WS_Improvement_from_Heuristic,
+                     Medoids_WS_Improvement_from_CS,
+                     Medoids_CS_Improvement_from_Heuristic), .f = list(mean = mean), na.rm = TRUE))
+as_tibble(cbind(nms = names(output), t(output)))
+
+output <- temp1 %>%
+  group_by(Proportion) %>%
+  summarise(across(c(Means_WS_Improvement_from_Heuristic, 
+                     Means_WS_Improvement_from_CS, 
+                     Means_CS_Improvement_from_Heuristic, 
+                     Medoids_WS_Improvement_from_Heuristic,
+                     Medoids_WS_Improvement_from_CS,
+                     Medoids_CS_Improvement_from_Heuristic), .f = list(mean = mean), na.rm = TRUE))
+as_tibble(cbind(nms = names(output), t(output)))
+
+paste("Similarity | Means (Silhouette) average % warm improves heuristic:", round(mean(temp1$Means_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Means (Silhouette) average % warm improves cold:", round(mean(temp1$Means_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Similarity | Means (Silhouette) average % cold improves heuristic:", round(mean(temp1$Means_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (Silhouette) average % warm improves heuristic:", round(mean(temp1$Medoids_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (Silhouette) average % warm improves cold:", round(mean(temp1$Medoids_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (Silhouette) average % cold improves heuristic:", round(mean(temp1$Medoids_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+```
+
+```{r}
+temp1 <- similarity_silhouette_raw %>%
+mutate(Means_WS_Improvement_from_Heuristic = (`Opt. K-Means (Warm)` - `K-Means`)*100/(`K-Means`),
+       Means_WS_Improvement_from_CS = (`Opt. K-Means (Warm)` - `Opt. K-Means (Cold)`)*100/(`Opt. K-Means (Cold)`),
+       Means_CS_Improvement_from_Heuristic = (`Opt. K-Means (Cold)` - `K-Means`)*100/(`K-Means`),
+       
+       Medoids_WS_Improvement_from_Heuristic = (`Opt. K-Medoids (Warm)` - `K-Medoids`)*100/(`K-Medoids`),
+       Medoids_WS_Improvement_from_CS = (`Opt. K-Medoids (Warm)` - `Opt. K-Medoids (Cold)`)*100/(`Opt. K-Medoids (Cold)`),
+       Medoids_CS_Improvement_from_Heuristic = (`Opt. K-Medoids (Cold)` - `K-Medoids`)*100/(`K-Medoids`))
+
+paste("Similarity | Means (Silhouette Raw) average % warm improves heuristic:", round(mean(temp1$Means_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Means (Silhouette Raw) average % warm improves cold:", round(mean(temp1$Means_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Similarity | Means (Silhouette Raw) average % cold improves heuristic:", round(mean(temp1$Means_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (Silhouette Raw) average % warm improves heuristic:", round(mean(temp1$Medoids_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (Silhouette Raw) average % warm improves cold:", round(mean(temp1$Medoids_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Similarity | Medoids (Silhouette Raw) average % cold improves heuristic:", round(mean(temp1$Medoids_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+```
+
+
+## Abalone Data:
+
+```{r}
+temp1 <- abalone_wcss %>%
+                    filter(`Optimizer Distance` == "euclidean") %>%
+                    mutate(Means_WS_Bad = as.integer(abs(`K-Means` - `Opt. K-Means (Warm)`) <= 0.001),
+                           Means_CS_NoSolution = as.integer(is.na(`Opt. K-Means (Cold)`)),
+                           Medoids_WS_Bad = as.integer(abs(`K-Medoids` - `Opt. K-Medoids (Warm)`) <= 0.001),
+                           Medoids_CS_NoSolution = as.integer(is.na(`Opt. K-Medoids (Cold)`)))
+paste("Abalone | # of Euclidean Models:", nrow(temp1))
+paste("Abalone | Means (WCSS) euclidean # warm w/ no improvement:", sum(temp1$Means_WS_Bad))
+paste("Abalone | Means (WCSS) euclidean # cold w/ no solution:", sum(temp1$Means_CS_NoSolution))
+paste("Abalone | Medoids (WCSS) euclidean # warm w/ no improvement:", sum(temp1$Medoids_WS_Bad))
+paste("Abalone | Medoids (WCSS) euclidean # cold w/ no solution:", sum(temp1$Medoids_CS_NoSolution))
+```
+
+```{r}
+temp1 <- abalone_silhouette %>%
+                    filter(`Optimizer Distance` == "euclidean") %>%
+                    mutate(Means_WS_Bad = as.integer(abs(`K-Means` - `Opt. K-Means (Warm)`) <= 0.001),
+                           Means_CS_NoSolution = as.integer(is.na(`Opt. K-Means (Cold)`)),
+                           Medoids_WS_Bad = as.integer(abs(`K-Medoids` - `Opt. K-Medoids (Warm)`) <= 0.001),
+                           Medoids_CS_NoSolution = as.integer(is.na(`Opt. K-Medoids (Cold)`)))
+paste("Abalone | # of Euclidean Models:", nrow(temp1))
+paste("Abalone | Means (Silhouette) euclidean # warm w/ no improvement:", sum(temp1$Means_WS_Bad))
+paste("Abalone | Means (Silhouette) euclidean # cold w/ no solution:", sum(temp1$Means_CS_NoSolution))
+paste("Abalone | Medoids (Silhouette) euclidean # warm w/ no improvement:", sum(temp1$Medoids_WS_Bad))
+paste("Abalone | Medoids (Silhouette) euclidean # cold w/ no solution:", sum(temp1$Medoids_CS_NoSolution))
+
+temp1 <- abalone_silhouette_raw %>%
+                    filter(`Optimizer Distance` == "euclidean") %>%
+                    mutate(Means_WS_Bad = as.integer(abs(`K-Means` - `Opt. K-Means (Warm)`) <= 0.001),
+                           Means_CS_NoSolution = as.integer(is.na(`Opt. K-Means (Cold)`)),
+                           Medoids_WS_Bad = as.integer(abs(`K-Medoids` - `Opt. K-Medoids (Warm)`) <= 0.001),
+                           Medoids_CS_NoSolution = as.integer(is.na(`Opt. K-Medoids (Cold)`)))
+paste("Abalone | # of Euclidean Models:", nrow(temp1))
+paste("Abalone | Means (Silhouette Raw) euclidean # warm w/ no improvement:", sum(temp1$Means_WS_Bad))
+paste("Abalone | Means (Silhouette Raw) euclidean # cold w/ no solution:", sum(temp1$Means_CS_NoSolution))
+paste("Abalone | Medoids (Silhouette Raw) euclidean # warm w/ no improvement:", sum(temp1$Medoids_WS_Bad))
+paste("Abalone | Medoids (Silhouette Raw) euclidean # cold w/ no solution:", sum(temp1$Medoids_CS_NoSolution))
+```
+
+
+```{r}
+temp1 <- abalone_wcss %>%
+mutate(Means_WS_Improvement_from_Heuristic = (`K-Means` - `Opt. K-Means (Warm)`)*100/(`K-Means`),
+       Means_WS_Improvement_from_CS = (`Opt. K-Means (Cold)` - `Opt. K-Means (Warm)`)*100/(`Opt. K-Means (Cold)`),
+       Means_CS_Improvement_from_Heuristic = (`K-Means` - `Opt. K-Means (Cold)`)*100/(`K-Means`),
+       
+       Medoids_WS_Improvement_from_Heuristic = (`K-Medoids` - `Opt. K-Medoids (Warm)`)*100/(`K-Medoids`),
+       Medoids_WS_Improvement_from_CS = (`Opt. K-Medoids (Cold)` - `Opt. K-Medoids (Warm)`)*100/(`Opt. K-Medoids (Cold)`),
+       Medoids_CS_Improvement_from_Heuristic = (`K-Medoids` - `Opt. K-Medoids (Cold)`)*100/(`K-Medoids`))
+
+paste("Abalone | Means (WCSS) average % warm improves heuristic:", round(mean(temp1$Means_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Means (WCSS) average % warm improves cold:", 
+round(mean(temp1$Means_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Abalone | Means (WCSS) average % cold improves heuristic:", round(mean(temp1$Means_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (WCSS) average % warm improves heuristic:", round(mean(temp1$Medoids_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (WCSS) average % warm improves cold:", round(mean(temp1$Medoids_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (WCSS) average % cold improves heuristic:", round(mean(temp1$Medoids_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+```
+
+```{r}
+temp1 <- abalone_silhouette %>%
+mutate(Means_WS_Improvement_from_Heuristic = (`Opt. K-Means (Warm)` - `K-Means`)*100/(`K-Means`),
+       Means_WS_Improvement_from_CS = (`Opt. K-Means (Warm)` - `Opt. K-Means (Cold)`)*100/(`Opt. K-Means (Cold)`),
+       Means_CS_Improvement_from_Heuristic = (`Opt. K-Means (Cold)` - `K-Means`)*100/(`K-Means`),
+       
+       Medoids_WS_Improvement_from_Heuristic = (`Opt. K-Medoids (Warm)` - `K-Medoids`)*100/(`K-Medoids`),
+       Medoids_WS_Improvement_from_CS = (`Opt. K-Medoids (Warm)` - `Opt. K-Medoids (Cold)`)*100/(`Opt. K-Medoids (Cold)`),
+       Medoids_CS_Improvement_from_Heuristic = (`Opt. K-Medoids (Cold)` - `K-Medoids`)*100/(`K-Medoids`))
+
+output <- temp1 %>%
+  group_by(Transformation) %>%
+  summarise(across(c(Means_WS_Improvement_from_Heuristic, 
+                     Means_WS_Improvement_from_CS, 
+                     Means_CS_Improvement_from_Heuristic, 
+                     Medoids_WS_Improvement_from_Heuristic,
+                     Medoids_WS_Improvement_from_CS,
+                     Medoids_CS_Improvement_from_Heuristic), .f = list(mean = mean), na.rm = TRUE))
+as_tibble(cbind(nms = names(output), t(output)))
+
+output <- temp1 %>%
+  group_by(Proportion) %>%
+  summarise(across(c(Means_WS_Improvement_from_Heuristic, 
+                     Means_WS_Improvement_from_CS, 
+                     Means_CS_Improvement_from_Heuristic, 
+                     Medoids_WS_Improvement_from_Heuristic,
+                     Medoids_WS_Improvement_from_CS,
+                     Medoids_CS_Improvement_from_Heuristic), .f = list(mean = mean), na.rm = TRUE))
+as_tibble(cbind(nms = names(output), t(output)))
+
+paste("Abalone | Means (Silhouette) average % warm improves heuristic:", round(mean(temp1$Means_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Means (Silhouette) average % warm improves cold:", 
+round(mean(temp1$Means_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Abalone | Means (Silhouette) average % cold improves heuristic:", round(mean(temp1$Means_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (Silhouette) average % warm improves heuristic:", round(mean(temp1$Medoids_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (Silhouette) average % warm improves cold:", round(mean(temp1$Medoids_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (Silhouette) average % cold improves heuristic:", round(mean(temp1$Medoids_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+```
+
+```{r}
+temp1 <- abalone_silhouette_raw %>%
+mutate(Means_WS_Improvement_from_Heuristic = (`Opt. K-Means (Warm)` - `K-Means`)*100/(`K-Means`),
+       Means_WS_Improvement_from_CS = (`Opt. K-Means (Warm)` - `Opt. K-Means (Cold)`)*100/(`Opt. K-Means (Cold)`),
+       Means_CS_Improvement_from_Heuristic = (`Opt. K-Means (Cold)` - `K-Means`)*100/(`K-Means`),
+       
+       Medoids_WS_Improvement_from_Heuristic = (`Opt. K-Medoids (Warm)` - `K-Medoids`)*100/(`K-Medoids`),
+       Medoids_WS_Improvement_from_CS = (`Opt. K-Medoids (Warm)` - `Opt. K-Medoids (Cold)`)*100/(`Opt. K-Medoids (Cold)`),
+       Medoids_CS_Improvement_from_Heuristic = (`Opt. K-Medoids (Cold)` - `K-Medoids`)*100/(`K-Medoids`))
+
+paste("Abalone | Means (Silhouette Raw) average % warm improves heuristic:", round(mean(temp1$Means_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Means (Silhouette Raw) average % warm improves cold:", 
+round(mean(temp1$Means_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Abalone | Means (Silhouette Raw) average % cold improves heuristic:", round(mean(temp1$Means_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (Silhouette Raw) average % warm improves heuristic:", round(mean(temp1$Medoids_WS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (Silhouette Raw) average % warm improves cold:", round(mean(temp1$Medoids_WS_Improvement_from_CS, na.rm=TRUE), digits=3))
+paste("Abalone | Medoids (Silhouette Raw) average % cold improves heuristic:", round(mean(temp1$Medoids_CS_Improvement_from_Heuristic, na.rm=TRUE), digits=3))
+```
+
+
